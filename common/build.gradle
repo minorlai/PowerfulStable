@@ -1,0 +1,93 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // 若集成过多第三方库时可能导致方法超过65536时需要开启
+        multiDexEnabled true
+        //Lombok 问题
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    repositories {
+        flatDir {
+            dirs '../libs' //this way we can find the .aar file in libs folder
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            aidl.srcDirs = ['src/main/java']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //加载对话框
+    implementation rootProject.ext.dependencies["spinKit"]
+
+    //baseAdapter
+    api rootProject.ext.dependencies["adapterHelper"]
+
+    //状态栏
+    api rootProject.ext.dependencies["immersionBar"]
+
+    //侧滑
+    api rootProject.ext.dependencies["swipebacklayout"]
+    //design
+    api rootProject.ext.support["design"]
+
+    //kotlin
+    api rootProject.ext.dependencies["kotlin-ktx"]
+    api rootProject.ext.dependencies["kotlin-stdlib"]
+    api rootProject.ext.dependencies["coroutines-core"]
+
+    //lombok 实体
+    implementation rootProject.ext.dependencies["lombok"]
+    annotationProcessor rootProject.ext.dependencies["lombok"]
+
+    //mvvm框架
+    api rootProject.ext.dependencies["mvvm"]
+
+    //刷新
+    api rootProject.ext.dependencies["smartRefreshLayout"]
+}

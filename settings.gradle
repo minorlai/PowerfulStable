@@ -1,0 +1,3 @@
+rootProject.name='PowerfulStable'
+include ':app', ':vpnLib'
+include ':common'
