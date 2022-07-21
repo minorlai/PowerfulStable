@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools" formatted="false" tools:ignore="MissingTranslation,DuplicateDefinition">
+    <!--****************************************************服务端状态码***************************************************************-->
+    <string name="app_error_101">Please check whether the network is connected</string>
+    <string name="app_error_102">The request failed, please try again later</string>
+    <string name="app_error_403">Please wait, the service is under maintenance</string>
+    <!--app loading-->
+    <string name="app_loading">Loading...</string>
+
+
+    <string name="exp_error1">Operation is not authorized</string>
+    <string name="exp_error2">Request denied</string>
+    <string name="exp_error3">Resource does not exist</string>
+    <string name="exp_error4">Server execution timeout</string>
+    <string name="exp_error5">Server internal error</string>
+    <string name="exp_error6">Server unavailable</string>
+    <string name="exp_error7">Network error, please try again later</string>
+    <string name="exp_error8">Parsing error</string>
+    <string name="exp_error9">Connection failed</string>
+    <string name="exp_error10">Certificate verification failed</string>
+    <string name="exp_error11">Connection timed out</string>
+    <string name="exp_error12">Abnormal network connection</string>
+    <string name="exp_error13">Network error, please try again later</string>
+
+    <!--Catch log-->
+    <string name="error_activity_error_occurred_explanation">An unexpected error occurred. \nSorry for the inconvenience.</string>
+    <string name="error_activity_restart_app">Restart</string>
+    <string name="error_activity_close_app">Turn off an app</string>
+    <string name="error_activity_error_details">Error log</string>
+    <string name="error_activity_error_details_title">Error details</string>
+    <string name="error_activity_error_details_close">Shut down</string>
+    <string name="error_activity_error_details_copy">Copy log</string>
+    <string name="error_activity_error_details_copied">Copy log</string>
+    <string name="error_activity_error_details_clipboard_label">Error message</string>
+</resources>

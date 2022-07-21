@@ -1,11 +1,11 @@
 ext {
     //android开发版本配置
     android = [
-            compileSdkVersion: 33,
+            compileSdkVersion: 30,
             buildToolsVersion: "30.0.3",
             applicationId    : "com.hzzt.powerful",
             minSdkVersion    : 19,
-            targetSdkVersion : 33,
+            targetSdkVersion : 30,
             versionCode      : 1,
             versionName      : "1.0.0",
     ]
@@ -61,8 +61,8 @@ ext {
             //kotlin协程
             "coroutines-core"                      : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0',
             "coroutines-android"                   : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0',
-            "kotlin-stdlib"                        : 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10',
-            "kotlin-ktx"                           : 'androidx.core:core-ktx:1.8.0',
+            "kotlin-stdlib"                        : 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10',
+            "kotlin-ktx"                           : 'androidx.core:core-ktx:1.3.2',
             //上下刷新
             "smartRefreshLayout"                   : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2',
             //baseadapter

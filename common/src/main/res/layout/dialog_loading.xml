@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_white_5dp"
+        android:paddingLeft="@dimen/dp_25"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_15"
+        tools:ignore="MissingDefaultResource">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.ThreeBounce"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:SpinKit_Color="@color/gray" />
+
+        <TextView
+            android:id="@+id/tv_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spin_kit"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:text="@string/app_loading"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text12"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

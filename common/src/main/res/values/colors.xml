@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--主题颜色-->
+    <color name="main_color">#1178F1</color>
+
+    <color name="white">#ffffff</color>
+    <color name="tran_white">#4dffffff</color>
+    <color name="tran_white1">#8fffffff</color>
+    <color name="tran_white2">#ffffffff</color>
+
+    <color name="red">#F75D5D</color>
+
+    <color name="gray">#D4D4D4</color>
+
+    <color name="black">#000000</color>
+
+    <color name="green">#309A5B</color>
+
+    <color name="orange">#F9BE71</color>
+
+    <color name="loading_bg">#55747E77</color>
+    <color name="loading_bg1">#77747E22</color>
+
+    <color name="common_trans">#00000000</color>
+
+    <color name="common_333">#333333</color>
+    <color name="common_666">#666666</color>
+    <color name="common_999">#999999</color>
+
+    <color name="common_line">#EFEFEF</color>
+    <color name="common_line1">#979797</color>
+    <color name="common_line2">#DFDFDF</color>
+    <color name="common_line3">#A6A6AA</color>
+</resources>
