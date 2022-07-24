@@ -72,7 +72,7 @@ dependencies {
     api rootProject.ext.dependencies["immersionBar"]
 
     //侧滑
-    api rootProject.ext.dependencies["swipebacklayout"]
+//    api rootProject.ext.dependencies["swipebacklayout"]
     //design
     api rootProject.ext.support["design"]
 

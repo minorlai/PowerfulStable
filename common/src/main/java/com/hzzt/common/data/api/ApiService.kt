@@ -17,6 +17,6 @@ interface ApiService {
      * @param req
      * @return
      */
-    @POST(ApiUrl.homeList)
+//    @POST(ApiUrl.homeList)
     fun homeListData(@Body req: Map<*, *>): Observable<CommonResponse<Any>>
 }

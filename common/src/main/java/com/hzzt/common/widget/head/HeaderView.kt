@@ -10,9 +10,9 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.hzzt.common.R
-import com.hzzt.common.databinding.ViewMatchHeadBinding
+import com.hzzt.common.databinding.ViewCommonHeadBinding
 import com.hzzt.common.utils.AppUtil
-import kotlinx.android.synthetic.main.view_match_head.view.*
+import kotlinx.android.synthetic.main.view_common_head.view.*
 
 /**
  * @author: Allen
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.view_match_head.view.*
  * @description: Head
  */
 class HeaderView : LinearLayout {
-    private var binding: ViewMatchHeadBinding? = null
+    private var binding: ViewCommonHeadBinding? = null
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -37,7 +37,7 @@ class HeaderView : LinearLayout {
     private fun init(context: Context) {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.view_match_head,
+            R.layout.view_common_head,
             null,
             false
         )
@@ -106,11 +106,11 @@ class HeaderView : LinearLayout {
         val title = ta.getString(R.styleable.HeadView_titleName)
         val titleColor = ta.getColor(
             R.styleable.HeadView_titleColor,
-            ContextCompat.getColor(context, R.color.common_333)
+            ContextCompat.getColor(context, R.color.white)
         )
         val bgColor = ta.getColor(
             R.styleable.HeadView_bgColor,
-            ContextCompat.getColor(context, R.color.white)
+            ContextCompat.getColor(context, R.color.common_trans)
         )
         setTitle(title)  //title
         setTitleColor(titleColor)
@@ -144,7 +144,7 @@ class HeaderView : LinearLayout {
         val text: String? = ta.getString(R.styleable.HeadView_conditionText)
         val conditionColor = ta.getColor(
             R.styleable.HeadView_conditionTextColor,
-            ContextCompat.getColor(context, R.color.common_333)
+            ContextCompat.getColor(context, R.color.white)
         )
         val isShowText = ta.getBoolean(R.styleable.HeadView_isCondition, false)
         tv_condition.visibility = if (isShowText) VISIBLE else GONE
@@ -162,7 +162,7 @@ class HeaderView : LinearLayout {
     private fun isShowBack(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.HeadView)
         val backImg =
-            ta.getResourceId(R.styleable.HeadView_backImg, R.drawable.personal_button_back)
+            ta.getResourceId(R.styleable.HeadView_backImg, R.drawable.icon_white_back)
         val isBack = ta.getBoolean(R.styleable.HeadView_isBack, true)
         layout_back.visibility = if (isBack) VISIBLE else GONE
         setBackImg(backImg)

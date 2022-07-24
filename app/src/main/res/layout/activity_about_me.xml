@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hzzt.powerful.vmodel.MainVm" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main">
+
+        <com.hzzt.common.widget.head.HeaderView
+            android:id="@+id/head_view"
+            app:titleName="@string/menu_au"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rect_white_top_12dp">
+            
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/app_icon"
+                android:layout_marginTop="@dimen/dp_120"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tv_app_info"
+                android:textColor="@color/black2"
+                android:layout_below="@+id/logo"
+                android:text="@string/app_name"
+                android:layout_marginTop="@dimen/dp_65"
+                android:textSize="@dimen/text16"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

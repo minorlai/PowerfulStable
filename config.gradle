@@ -72,7 +72,7 @@ ext {
             //沉浸式状态栏
             "immersionBar"                         : 'com.geyifeng.immersionbar:immersionbar:3.2.2',
             //侧滑返回
-            "swipebacklayout"                      : 'me.imid.swipebacklayout.lib:library:1.3.0',
+           // "swipebacklayout"                      : 'me.imid.swipebacklayout.lib:library:1.3.0',
             //Banner
             "banner"                               : 'io.github.youth5201314:banner:2.2.2',
             //菜单

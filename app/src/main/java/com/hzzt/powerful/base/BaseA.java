@@ -64,20 +64,16 @@ import me.goldze.mvvmhabit.bus.RxSubscriptions;
 import me.goldze.mvvmhabit.utils.ConvertUtils;
 import me.goldze.mvvmhabit.utils.KLog;
 import me.goldze.mvvmhabit.utils.ToastUtils;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.Utils;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 
 /**
  * @author: Allen
  * @date: 2022/7/21
  * @description: base 二次封装
  */
-public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extends BaseActivity<V, VM> implements SwipeBackActivityBase, LifecycleOwner {
+public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extends BaseActivity<V, VM> implements LifecycleOwner {
     private String TAG = "BaseA";
     protected LoadingDialog loadingDialog;
-    private SwipeBackActivityHelper mHelper;
+//    private SwipeBackActivityHelper mHelper;
     private volatile int loadNum = 0;
     public Intent aIntent;
     public SwipeRefreshLayout refreshLayout;
@@ -113,17 +109,17 @@ public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extend
         super.onDestroy();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        if (isDialogTran)
-            mHelper.onPostCreate();
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        if (isDialogTran)
+//            mHelper.onPostCreate();
+//    }
 
     @Override
     public <T extends View> T findViewById(int id) {
         View v = super.findViewById(id);
-        if (v == null && mHelper != null) {
+        if (v == null) {
             return super.findViewById(id);
         }
         return (T) v;
@@ -134,22 +130,22 @@ public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extend
         return BR.viewModel;
     }
 
-    @Override
-    public SwipeBackLayout getSwipeBackLayout() {
-        return mHelper.getSwipeBackLayout();
-    }
-
-    @Override
-    public void setSwipeBackEnable(boolean enable) {
-        if (isDialogTran)
-            getSwipeBackLayout().setEnableGesture(enable);
-    }
-
-    @Override
-    public void scrollToFinishActivity() {
-        Utils.convertActivityToTranslucent(this);
-        getSwipeBackLayout().scrollToFinishActivity();
-    }
+//    @Override
+//    public SwipeBackLayout getSwipeBackLayout() {
+//        return mHelper.getSwipeBackLayout();
+//    }
+//
+//    @Override
+//    public void setSwipeBackEnable(boolean enable) {
+//        if (isDialogTran)
+//            getSwipeBackLayout().setEnableGesture(enable);
+//    }
+//
+//    @Override
+//    public void scrollToFinishActivity() {
+//        Utils.convertActivityToTranslucent(this);
+//        getSwipeBackLayout().scrollToFinishActivity();
+//    }
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -171,10 +167,10 @@ public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extend
     @Override
     public void initData() {
         super.initData();
-        mHelper = new SwipeBackActivityHelper(this);  //页面侧滑返回
-        if (isDialogTran) {
-            mHelper.onActivityCreate();
-        }
+//        mHelper = new SwipeBackActivityHelper(this);  //页面侧滑返回
+//        if (isDialogTran) {
+//            mHelper.onActivityCreate();
+//        }
         initImmersionBar();   //沉浸式
         initFlow();  //view 操作
         setLocale(new Locale("en"));
@@ -202,7 +198,7 @@ public abstract class BaseA<V extends ViewDataBinding, VM extends BaseVM> extend
         ImmersionBar.with(this)
                 .transparentBar()                //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
                 // .keyboardEnable(true)          //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
-                .statusBarDarkFont(true)     //状态栏字体是深色，不写默认为亮色
+//                .statusBarDarkFont(true)     //状态栏字体是深色，不写默认为亮色
                 .init();
         if (ImmersionBar.hasNavigationBar(this)) { //判断是否有导航栏，有则单独设置导航栏颜色与透明度
             ImmersionBar.with(this).fullScreen(false).navigationBarColor(R.color.black).init();

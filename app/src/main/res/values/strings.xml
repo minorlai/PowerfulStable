@@ -1,3 +1,42 @@
-<resources>
-    <string name="app_name">PowerfulStable</string>
+<?xml version="1.0" encoding="utf-8"?><!--App 名字 全局使用-->
+<!DOCTYPE resources [<!ENTITY appname "Powerful-Stable">]>
+<resources xmlns:tools="http://schemas.android.com/tools" formatted="false" tools:ignore="MissingTranslation,DuplicateDefinition,ExtraTranslation">
+    <string name="app_name">&appname;</string>
+
+    <!--协议-->
+    <string name="privacy_text">Your Privacy is Our Goal，Thank you for choosing us. \nwe\'ll strictly follow our no-logs policy and relevant data privacy laws,and will try our best to fight for your privacy and security. \nwe\'ll collect the minimum anonymous data required to offer you a sate and stable VPNexperience.For you convenience,hereby enclosed are the bullet points of data collected by us: \n\n(1) Device\'s System language which we do not retain.This is for setting up the in-app language. \n\n(2) IP address and System Country which we do not retain.This is for setting up the fastest servers list.</string>
+
+    <string name="privacy_text1">For more information.please read our</string>
+    <string name="privacy_text2">Terms of Service</string>
+    <string name="privacy_text3">Privacy Policy</string>
+    <string name="privacy_text4">and</string>
+    <string name="agree_privacy">Agree &amp; Continue</string>
+
+    <string name="menu_faq">FAQ</string>
+    <string name="menu_pp">Privacy policy</string>
+    <string name="menu_au">About Us</string>
+    <string name="menu_exit">Exit</string>
+
+    <string name="home_remaining_time">Remaining time</string>
+    <string name="home_smart_server">Smart Server</string>
+    <string name="home_connect">Connect</string>
+    <string name="navigation_drawer_open">drawer open</string>
+    <string name="navigation_drawer_close">drawer close</string>
+
+    <!--连接-->
+    <string name="connect_fail">Connection Failure</string>
+    <string name="connect_disconnect">Successful DisConnected</string>
+    <string name="connect_fail_hint">To connect,please try the follows</string>
+    <string name="connect_fail_check">1.Check your internet Connection is working\n2.Try a different VPN Server</string>
+    <string name="connect_change">Change VPN Server</string>
+    <string name="connect_suc">Successful Connection</string>
+    <string name="connect_country">VPN Server</string>
+    <string name="connect_speed">Speed</string>
+    <string name="connect_select">Select server</string>
+    <string name="disconnect_to_home">Return to the home page</string>
+
+    <!--服务器-->
+    <string name="server_all">All servers</string>
+
+
 </resources>

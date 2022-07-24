@@ -1,0 +1,265 @@
+[
+    {
+        "country": "United States",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/united_states.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            },
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Hong Kong",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/hong_kong.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-hongkong-01.ovpn",
+                "key": "",
+                "weight": 1
+            },
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-hongkong-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Japan",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/japan.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Australia",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/australia.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Belgium",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/belgium.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Brazil",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/brazil.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Canada",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/canada.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Denmark",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/denmark.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "France",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/france.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Germany",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/germany.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Indonesia",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/indonesia.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Italy",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/ltaly.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Malaysia",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/malaysia.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Netherlands",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/netherlands.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Philippine",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/philippine.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Portugal",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/portugal.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Russia",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/russia.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Senegal",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/senegal.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "South Korea",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/south_korea.png",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Spain",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/spain.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Sweden",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/sweden.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "Switzerland",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/switzerland.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "country": "United Kingdom",
+        "iconUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/nationalflag/uk.jpg",
+        "server": [
+            {
+                "serUrl": "https://s3.us-west-2.amazonaws.com/test.supervpn.live/testovpn/ovpn/test-usa-siliconvalley-01.ovpn",
+                "key": "",
+                "weight": 1
+            }
+        ]
+    }
+]

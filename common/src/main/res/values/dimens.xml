@@ -17,6 +17,7 @@
     <dimen name="text24">24sp</dimen>
     <dimen name="text26">26sp</dimen>
     <dimen name="text30">30sp</dimen>
+    <dimen name="text32">32sp</dimen>
     <!--view的宽高-->
 
     <dimen name="dp_05">0.5dp</dimen>

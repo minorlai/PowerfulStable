@@ -5,7 +5,11 @@
     <color name="colorAccent">#D81B60</color>
 
     <!--主题颜色-->
-    <color name="main_color">#1178F1</color>
+    <color name="main_color">#8A7EEE</color>
+    <color name="main_color1">#8A7DEC</color>
+    <color name="main_color2">#8B81F0</color>
+    <color name="main_color3">#9C6DFD</color>
+    <color name="main_color4">#A578FF</color>
 
     <color name="white">#ffffff</color>
     <color name="tran_white">#4dffffff</color>
@@ -13,14 +17,21 @@
     <color name="tran_white2">#ffffffff</color>
 
     <color name="red">#F75D5D</color>
+    <color name="red1">#CC2B2B</color>
 
     <color name="gray">#D4D4D4</color>
+    <color name="gray1">#DBDBDB</color>
+    <color name="gray2">#707070</color>
+    <color name="gray3">#959595</color>
 
     <color name="black">#000000</color>
+    <color name="black1">#292929</color>
+    <color name="black2">#080808</color>
+    <color name="black3">#2C2C2C</color>
 
     <color name="green">#309A5B</color>
 
-    <color name="orange">#F9BE71</color>
+    <color name="orange">#FDF86D</color>
 
     <color name="loading_bg">#55747E77</color>
     <color name="loading_bg1">#77747E22</color>

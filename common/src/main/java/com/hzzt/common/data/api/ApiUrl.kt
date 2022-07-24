@@ -9,6 +9,12 @@ object ApiUrl {
     //域名地址
     var baseUrl = "https://api.ask-spark.com/"
 
-    //test
-    const val homeList=""
+    //服务协议
+    const val serviceUrl="https://www.powerful-stable.live/detail/service.html"
+
+    //隐私协议
+    const val privacyUrl="https://www.powerful-stable.live/detail/privacy.html"
+
+    //faq
+    const val faqUrl="https://www.powerful-stable.live/detail/FAQ.html"
 }

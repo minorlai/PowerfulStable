@@ -44,4 +44,28 @@
         <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
     </style>
 
+    <!--倒计时-->
+    <declare-styleable name="CountDownView">
+        <!--倒计时时间-->
+        <attr name="ctv_time" format="integer" />
+        <!--边框颜色-->
+        <attr name="ctv_bg" format="reference|color" />
+        <!--边框大小-->
+        <attr name="ctv_text_width" format="dimension" />
+        <!--文字大小-->
+        <attr name="ctv_text_size" format="dimension" />
+        <!--间隔-->
+        <attr name="ctv_interval_width" format="dimension" />
+        <!--圆角-->
+        <attr name="ctv_radius" format="dimension" />
+        <!--文字颜色-->
+        <attr name="ctv_text_color" format="reference|color" />
+        <!--分号颜色-->
+        <attr name="ctv_semicolon_color" format="reference|color" />
+        <!--分号大小-->
+        <attr name="ctv_semicolon_size" format="dimension" />
+        <!--自动倒计时-->
+        <attr name="ctv_auto_play" format="boolean" />
+    </declare-styleable>
+
 </resources>

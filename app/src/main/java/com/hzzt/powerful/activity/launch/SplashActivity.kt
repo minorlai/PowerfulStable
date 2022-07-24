@@ -2,6 +2,7 @@ package com.hzzt.powerful.activity.launch
 
 import android.os.Bundle
 import android.util.Log
+import com.hzzt.common.data.cache.CacheData
 import com.hzzt.common.entity.req.CommonUI
 import com.hzzt.common.entity.resp.CommonResponse
 import com.hzzt.powerful.MainActivity
@@ -31,7 +32,10 @@ class SplashActivity : BaseA<ActivitySplashBinding, SplashVm>() {
     //跳转首页
     private fun initPageToFinish() {
         handler.postDelayed({
-            startActivity(MainActivity::class.java)
+            if (CacheData.isAgreePrivacy) {
+                startActivity(MainActivity::class.java)
+            } else
+                startActivity(PrivacyActivity::class.java)
             finish()
         }, 2500)
     }

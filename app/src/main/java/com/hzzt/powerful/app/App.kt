@@ -33,13 +33,11 @@ class App : BaseApplication() {
 
     companion object {
         lateinit var app: App
-
         @JvmField
         var Gson: Gson = GsonBuilder().disableHtmlEscaping().create() //防止 被转义
-        var GoogleAdId: String = ""
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+
     override fun onCreate() {
         super.onCreate()
         app = this
@@ -49,11 +47,9 @@ class App : BaseApplication() {
         KLog.init(true)   //BuildConfig.DEBUG
         Utils.init(this)
         initCatch()
-
-
-        createConfiguration(this,"en")
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            createConfiguration(this,"en")
+        }
     }
 
     //系统默认语言

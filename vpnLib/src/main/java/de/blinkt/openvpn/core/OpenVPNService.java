@@ -149,7 +149,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     private final IBinder mBinder = new LocalBinder();
     private static String state = "";
-    boolean flag = false;
+    private static boolean flag = false;
     private String mLastTunCfg;
     private String mRemoteGW;
     private Handler guiHandler;
@@ -1282,7 +1282,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     }
 
     long c = Calendar.getInstance().getTimeInMillis();
-    long time;
+    public static long time;
     int lastPacketReceive = 0;
     String seconds = "0", minutes, hours;
 
@@ -1451,7 +1451,8 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         state = "";
     }
 
-    public boolean isConnected() {
+    public static boolean isConnected() {
         return flag;
     }
+
 }
