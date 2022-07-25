@@ -89,5 +89,8 @@ dependencies {
     api rootProject.ext.dependencies["mvvm"]
 
     //刷新
-    api rootProject.ext.dependencies["smartRefreshLayout"]
+  //  api rootProject.ext.dependencies["smartRefreshLayout"]
+
+    //json 动画
+    implementation 'com.airbnb.android:lottie:3.4.0'
 }

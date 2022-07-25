@@ -19,6 +19,7 @@ import com.hzzt.common.data.cache.CacheData
 import com.hzzt.common.dialog.AppExitDialog
 import com.hzzt.common.dialog.ConnectCreateDialog
 import com.hzzt.common.dialog.DisconnectDialog
+import com.hzzt.common.dialog.RemindDownDialog
 import com.hzzt.common.entity.req.CommonUI
 import com.hzzt.common.entity.resp.CommonResponse
 import com.hzzt.common.entity.resp.CurrentServerResp
@@ -50,7 +51,9 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     private var currentServerResp: CurrentServerResp? = null  //当前连接服务器
     private var reqCode: Int = 0x123
     private var countTime: Int = CacheData.downTimer  //3个小时
-    private var halfHour: Int = (0.5 * 60 * 60).toInt()  //半小时
+//    private var halfHour: Int = (0.5 * 60 * 60).toInt()  //半小时
+    private var halfHour: Int = 2400  //半小时
+    private var remindDialog: RemindDownDialog?=null  //闹钟提醒
     private var isHandClick: Boolean = false  //是否手动点击
 
     //当前速度
@@ -67,6 +70,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     }
 
     override fun initArgument() {
+        initHandler()
         CacheData.isAgreePrivacy = true
     }
 
@@ -124,12 +128,34 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     //倒计时
     private fun initDownTimer() {
         time_view.setCountDownTime(countTime);//设置控件的倒计时间
+        if(countTime<halfHour){
+            time_view.setTextPointColor(getResColor(R.color.red1))
+        }else{
+            time_view.setTextPointColor(getResColor(R.color.white))
+        }
         time_view.setOnCallBackListener { downTime ->  //监听倒计时
-            this.countTime = downTime
-            if (downTime == halfHour) {
-                time_view.setTextPointColor(getResColor(R.color.red1))
-            } else {
-                time_view.setTextPointColor(getResColor(R.color.white))
+            handler.post {
+                this.countTime = downTime
+                if (downTime < halfHour) {
+                    if(remindDialog==null){
+                        remindDialog= RemindDownDialog(activity,getResToStr(R.string.connect_down))
+                        remindDialog!!.setListener{
+                            remindDialog=null
+                        }
+                        remindDialog!!.show()
+                    }
+                    time_view.setTextPointColor(getResColor(R.color.red1))
+                } else if(downTime==0){  //结束
+                    if(remindDialog==null){
+                        remindDialog= RemindDownDialog(activity,getResToStr(R.string.connect_down))
+                        remindDialog!!.setListener{
+                            remindDialog=null
+                        }
+                        remindDialog!!.show()
+                    }
+                }else {
+                    time_view.setTextPointColor(getResColor(R.color.white))
+                }
             }
         }
     }
@@ -137,7 +163,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     override fun onClickView(view: View?) {
         super.onClickView(view)
         when (view?.id) {
-            R.id.iv_connect -> {
+            R.id.layout_ss -> {
                 // Vpn 正在运行，用户想断开当前连接。
                 if (vpnStart) {
                     confirmDisconnect()  //断开
@@ -234,10 +260,13 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     private fun status(status: String) {
         if (status == Constant.CONNECT) {
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
         } else if (status == Constant.CONNECTING) {
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
         } else if (status == Constant.CONNECTED) {  //已连接
             iv_connect.setImageResource(R.drawable.bg_circle_in_press)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_main)
             //连接结果
             if (AppUtil.isMultiClickClick(2000)) {
                 countTime=CacheData.downTimer
@@ -250,6 +279,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             }
         } else if (status == Constant.DISCONNECT) {  //断开
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
             //连接结果
             if (ClickUtil.isFastClick()&&isHandClick) {
                 isHandClick=false
@@ -262,6 +292,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             }
         } else if (status == Constant.NONETWORK) {  //网络问题
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
             //连接结果
             if (ClickUtil.isFastClick()&&isHandClick) {
                 isHandClick=false
@@ -274,6 +305,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             }
         } else {
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+            layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
         }
     }
 

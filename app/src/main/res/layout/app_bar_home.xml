@@ -29,20 +29,29 @@
         app:ctv_bg="@color/common_trans"
         app:ctv_interval_width="@dimen/dp_30"
         app:ctv_radius="@dimen/dp_5"
-        app:ctv_text_color="@color/white"
         app:ctv_semicolon_color="@color/white"
+        app:ctv_text_color="@color/white"
         app:ctv_text_size="@dimen/text32"
         app:ctv_text_width="@dimen/dp_50"
         app:ctv_time="0" />
 
-    <ImageView
-        android:id="@+id/iv_connect"
+    <RelativeLayout
+        android:id="@+id/layout_ss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_50"
-        android:src="@drawable/bg_circle_in_normal" />
+        android:background="@drawable/bg_circle_gray"
+            android:onClick="onClickView"
+        android:padding="@dimen/dp_20">
+
+        <ImageView
+            android:id="@+id/iv_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_circle_in_normal" />
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/layout_server"

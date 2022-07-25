@@ -14,9 +14,6 @@ import com.hzzt.common.data.cache.CacheData
 import com.hzzt.powerful.MainActivity
 import com.hzzt.powerful.R
 import com.hzzt.powerful.activity.error.ErrorActivity
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.twinkle.commonlib.data.constants.Constant
 import me.goldze.mvvmhabit.base.BaseApplication
 import me.goldze.mvvmhabit.crash.CaocConfig
 import me.goldze.mvvmhabit.utils.KLog

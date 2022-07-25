@@ -3,6 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    //签名文件配置
+    signingConfigs {
+        config1 {
+            keyAlias 'hzzt'
+            keyPassword 'hzzt.123'
+            storeFile file('hzzt.123.jks')
+            storePassword 'hzzt.123'
+        }
+    }
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
@@ -23,7 +33,16 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled true   // Zipalign优化
+        //    shrinkResources true   // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config1
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled true   // Zipalign优化
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config1
         }
     }
     dataBinding {
@@ -53,9 +72,20 @@ android {
         }
     }
 
+    //命名打包
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = "PowerfulState_v${variant.versionName}_${customTime()}.apk"
+            }
+    }
 }
-
+//自定义时间
+def customTime() {
+    return new Date().format("MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':common')
+    api project(path: ':vpnLib')
 }

@@ -37,7 +37,7 @@ class SplashActivity : BaseA<ActivitySplashBinding, SplashVm>() {
             } else
                 startActivity(PrivacyActivity::class.java)
             finish()
-        }, 2500)
+        }, 5000)
     }
 
     override fun initLayoutUpdate(common: CommonUI): Int {

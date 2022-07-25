@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/layout_item"
     android:background="@drawable/bg_rect_black_6dp"
     android:layout_marginBottom="@dimen/dp_10"
     android:orientation="vertical">
@@ -26,4 +27,24 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:id="@+id/icon_select"
+            android:src="@drawable/icon_select_press"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/icon_yes"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </RelativeLayout>

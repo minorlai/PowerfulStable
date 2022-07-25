@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.text.Html"/>
@@ -10,13 +11,17 @@
         android:orientation="vertical"
         android:background="@drawable/bg_rect_white_15dp">
 
-        <ImageView
-            android:id="@+id/clock"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_clock"
             android:src="@drawable/icon_clock"
             android:layout_marginTop="@dimen/dp_25"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:lottie_imageAssetsFolder="images/"
+            app:lottie_fileName="data.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_height="@dimen/dp_60"/>
 
         <TextView
             android:id="@+id/tv_hint_content"
@@ -25,6 +30,8 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
             android:textSize="@dimen/text16"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"

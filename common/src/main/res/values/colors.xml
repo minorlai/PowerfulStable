@@ -10,6 +10,7 @@
     <color name="main_color2">#8B81F0</color>
     <color name="main_color3">#9C6DFD</color>
     <color name="main_color4">#A578FF</color>
+    <color name="main_color5">#855FD2</color>
 
     <color name="white">#ffffff</color>
     <color name="tran_white">#4dffffff</color>
@@ -23,6 +24,7 @@
     <color name="gray1">#DBDBDB</color>
     <color name="gray2">#707070</color>
     <color name="gray3">#959595</color>
+    <color name="gray4">#ACACAC</color>
 
     <color name="black">#000000</color>
     <color name="black1">#292929</color>

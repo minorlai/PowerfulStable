@@ -17,5 +17,5 @@ object CacheData {
     var serverConfig: CurrentServerResp by Preference("serverConfig", CurrentServerResp())    //当前连接对象配置
 
     //倒计时时间
-    var downTimer:Int by Preference("downTimer",3*60*60)  //默认3个小时
+    var downTimer:Int by Preference("downTimer",1*60*60)  //默认3个小时
 }
