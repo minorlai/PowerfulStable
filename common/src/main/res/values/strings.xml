@@ -8,7 +8,7 @@
     <string name="app_loading">Loading...</string>
     <!--退出-->
     <string name="app_exit">Press again to exit</string>
-    <string name="app_exit_hint">Confirm to log out of VPN?</string>
+    <string name="app_exit_hint">Confirm to logout of VPN?</string>
 
     <!--连接-->
     <string name="connect_other">Do you want to reconnect to another server?</string>

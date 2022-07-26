@@ -32,12 +32,14 @@ class App : BaseApplication() {
         lateinit var app: App
         @JvmField
         var Gson: Gson = GsonBuilder().disableHtmlEscaping().create() //防止 被转义
+        var isRestart:Boolean=false
     }
 
 
     override fun onCreate() {
         super.onCreate()
         app = this
+        isRestart=true
         //默认语言
         setNormalLanguage()
         //是否开启打印日志

@@ -26,13 +26,13 @@ public class ConnectCreateDialog extends Dialog {
     private Context context;
 
     public static ConnectCreateDialog getInstance(Context context) {
-        if (dialog == null) {
-            synchronized (ConnectCreateDialog.class) {
-                if (dialog == null) {
+//        if (dialog == null) {
+//            synchronized (ConnectCreateDialog.class) {
+//                if (dialog == null) {
                     dialog = new ConnectCreateDialog(context);
-                }
-            }
-        }
+//                }
+//            }
+//        }
         return dialog;
     }
 
@@ -54,6 +54,14 @@ public class ConnectCreateDialog extends Dialog {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         this.getWindow().setAttributes(lp);
         getWindow().setWindowAnimations(R.style.anim_style);// 设置动画
+    }
+
+    //关闭对话框
+    public static void disDialog(){
+        if(dialog!=null) {
+            dialog.dismiss();
+            dialog=null;
+        }
     }
 
 //    @Override

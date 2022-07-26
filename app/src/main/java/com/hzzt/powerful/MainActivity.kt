@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.VpnService
 import android.os.Bundle
+import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
@@ -25,6 +26,7 @@ import com.hzzt.common.entity.resp.CommonResponse
 import com.hzzt.common.entity.resp.CurrentServerResp
 import com.hzzt.common.utils.AppUtil
 import com.hzzt.common.utils.ClickUtil
+import com.hzzt.common.utils.MyCountDownTimer
 import com.hzzt.powerful.activity.home.AboutActivity
 import com.hzzt.powerful.activity.home.ConnectStateActivity
 import com.hzzt.powerful.activity.home.ServerActivity
@@ -55,7 +57,10 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     private var halfHour: Int = 2400  //半小时
     private var remindDialog: RemindDownDialog? = null  //闹钟提醒
     private var isHandClick: Boolean = false  //是否手动点击
+    private var isHandConnectClick: Boolean = false  //是否手动点击
     private var currentState = ""  //当前状态
+    private var downTime = 10*1000L  //倒计时10秒，未连接成功，直接显示失败
+    private var countDownTimer: MyCountDownTimer? = null //当前tv倒计时
 
     //当前速度
     companion object {
@@ -129,40 +134,64 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
 
     //倒计时
     private fun initDownTimer() {
-        time_view.setCountDownTime(if (currentServerResp == null||TextUtils.isEmpty(currentServerResp?.serUrl)) 0 else countTime)//设置控件的倒计时间(首次安装进入显示00:00:00)
-        if (countTime < halfHour) {
-            time_view.setTextPointColor(getResColor(R.color.red1))
-        } else {
-            time_view.setTextPointColor(getResColor(R.color.white))
-        }
+        time_view.setCountDownTime(
+            if (currentServerResp == null || TextUtils.isEmpty(
+                    currentServerResp?.serUrl
+                )
+            ) 0 else countTime
+        )//设置控件的倒计时间(首次安装进入显示00:00:00)
+//        if (countTime < halfHour) {
+//            time_view.setTextPointColor(getResColor(R.color.red1))
+//        } else {
+//            time_view.setTextPointColor(getResColor(R.color.white))
+//        }
         time_view.setOnCallBackListener { downTime ->  //监听倒计时
-            handler.post {
-                this.countTime = downTime
-                if (downTime < halfHour) {
-                    if (remindDialog == null) {
-                        remindDialog =
-                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
-                        remindDialog!!.setListener {
-                            remindDialog = null
-                        }
-                        remindDialog!!.show()
-                    }
-                    time_view.setTextPointColor(getResColor(R.color.red1))
-                } else if (downTime == 0) {  //结束
-                    if (remindDialog == null) {
-                        remindDialog =
-                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
-                        remindDialog!!.setListener {
-                            remindDialog = null
-                        }
-                        remindDialog!!.show()
-                    }
-                } else {
-                    time_view.setTextPointColor(getResColor(R.color.white))
-                }
-            }
+//            handler.post {
+            this.countTime = downTime
+//                if (downTime < halfHour) {
+//                    if (remindDialog == null) {
+//                        remindDialog =
+//                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
+//                        remindDialog!!.setListener {
+//                            remindDialog = null
+//                        }
+//                        remindDialog!!.show()
+//                    }
+//                    time_view.setTextPointColor(getResColor(R.color.red1))
+//                } else
+//
+//                    if (downTime == 0) {  //结束
+//                    if (remindDialog == null) {
+//                        remindDialog =
+//                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
+//                        remindDialog!!.setListener {
+//                            remindDialog = null
+//                        }
+//                        remindDialog!!.show()
+//                    }
+//                } else {
+//                    time_view.setTextPointColor(getResColor(R.color.white))
+//                }
+//            }
         }
     }
+
+    //检测连接状态
+    private fun startCheckConnectState(){
+        countDownTimer = object : MyCountDownTimer(downTime, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                super.onTick(millisUntilFinished)
+                KLog.d("----check--${millisUntilFinished/1000}")
+            }
+            override fun onFinish() {
+                status(Constant.CONNECT_FAIL)
+                stopVpn()
+                KLog.d("----->failed")
+                cancel()
+            }
+        }.start(downTime)
+    }
+
 
     override fun onClickView(view: View?) {
         super.onClickView(view)
@@ -172,16 +201,21 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 if (vpnStart) {
                     confirmDisconnect()  //断开
                 } else {
+                    isHandConnectClick = true
                     if (currentServerResp != null && !TextUtils.isEmpty(currentServerResp?.serUrl)) {
-                        ConnectCreateDialog.getInstance(activity).show()
-                        prepareVpn()
-                    } else {
-                        //随机一个
-                        currentServerResp = AppUtil.getRandomServer(activity)
-                        if (currentServerResp != null && !TextUtils.isEmpty(currentServerResp?.serUrl)) {
-                            checkCacheConfig() //设置底下数据
+                        if (!activity.isFinishing) {
                             ConnectCreateDialog.getInstance(activity).show()
                             prepareVpn()
+                        }
+                    } else {
+                        //随机一个
+                        if (!activity.isFinishing) {
+                            currentServerResp = AppUtil.getRandomServer(activity)
+                            if (currentServerResp != null && !TextUtils.isEmpty(currentServerResp?.serUrl)) {
+                                checkCacheConfig() //设置底下数据
+                                ConnectCreateDialog.getInstance(activity).show()
+                                prepareVpn()
+                            }
                         }
                     }
                 }
@@ -257,9 +291,9 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                     status(Constant.NONETWORK)
                     KLog.d("-------没有网络")
                     //  showMsg(R.string.app_error_101)
-                    ConnectCreateDialog.getInstance(activity).dismiss()
+                    ConnectCreateDialog.disDialog()
                 }
-                "USERPAUSE" ->{  //暂停
+                "USERPAUSE" -> {  //暂停
                     status(Constant.USERPAUSE)
                 }
             }
@@ -279,19 +313,21 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         } else if (status == Constant.CONNECTED) {  //已连接
             iv_connect.setImageResource(R.drawable.bg_circle_in_press)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_main)
+            countTime = CacheData.downTimer
+            time_view.setCountDownTime(countTime)
+            time_view.stop()
+            time_view.start() //启动倒计时
             //连接结果
-            if (ClickUtil.isConnectClick(1000)) {
-                ConnectCreateDialog.getInstance(activity).dismiss()
-
-                countTime = CacheData.downTimer
-                time_view.setCountDownTime(countTime)
-                time_view.stop()
-                time_view.start() //启动倒计时
+            if (ClickUtil.isConnectClick(1000) && isHandConnectClick) {
+                isHandConnectClick = false
+                if (!activity.isFinishing)  ConnectCreateDialog.disDialog()
                 Intent(activity, ConnectStateActivity::class.java).run {
                     putExtra(Constant.CONNECTKEY, Constant.CONNECTED)
                     startActivityForResult(this, reqCode)
                 }
             }
+            //结束10s倒计时
+            countDownTimer?.cancel()
         } else if (status == Constant.DISCONNECT) {  //断开
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
@@ -304,10 +340,12 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 }
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
-            }else{
+            } else {
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
             }
+            //结束10s倒计时
+            countDownTimer?.cancel()
         } else if (status == Constant.NONETWORK) {  //网络问题
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
@@ -320,6 +358,22 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 }
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
+            //结束10s倒计时
+            countDownTimer?.cancel()
+            }
+        } else if (status == Constant.CONNECT_FAIL) {  //失败
+            Intent(activity, ConnectStateActivity::class.java).run {
+                putExtra(Constant.CONNECTKEY, Constant.CONNECT_FAIL)
+                startActivityForResult(this, reqCode)
+            }
+            //结束10s倒计时
+            countDownTimer?.cancel()
+            if (!activity.isFinishing) {
+                ConnectCreateDialog.disDialog()
+                time_view.stop() //结束倒计时
+                CacheData.downTimer = countTime  //保存结束倒计时
+                iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
+                layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
             }
         } else {
             time_view.stop() //结束倒计时
@@ -334,6 +388,8 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
      * Start the VPN
      */
     private fun startVpn() {
+        //开始倒计时，10s结束后未连接上则跳转失败
+        startCheckConnectState()
         currentServerResp = CacheData.serverConfig
         if (currentServerResp == null || TextUtils.isEmpty(currentServerResp?.serUrl)) return
         currentServerResp?.serUrl?.let { Log.d("URL--", it) }
@@ -356,9 +412,11 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 // Update log
                 vpnStart = true
             } catch (e: Exception) {
-                showMsg(e.message)
-                ConnectCreateDialog.getInstance(activity).dismiss()
-                stopVpn()
+                handler.post {
+                    showMsg(e.message)
+                    ConnectCreateDialog.disDialog()
+                    stopVpn()
+                }
                 e.printStackTrace()
             }
         }.start()
@@ -384,7 +442,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
      * 断开对话框
      */
     fun confirmDisconnect() {
-        if (AppUtil.isMultiClickClick(1000)) {
+        if (AppUtil.isMultiClickClick(1000) && !activity.isFinishing) {
             val disconnectDialog = DisconnectDialog(activity)
             disconnectDialog.setListener {
                 isHandClick = true
@@ -464,9 +522,10 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         super.onResume()
     }
 
-//    override fun onPause() {
-////        super.onPause()
-////    }
+    override fun onPause() {
+        super.onPause()
+        isHandClick=false
+    }
 
     override fun onDestroy() {
         LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
@@ -481,6 +540,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             startVpn()
         } else if (resultCode == RESULT_OK) {
+            isHandConnectClick=true
             checkCacheConfig()
             // 停止之前的连接
             if (vpnStart) {
@@ -488,8 +548,10 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
             }
-            ConnectCreateDialog.getInstance(activity).show()
-            prepareVpn()
+            if (!activity.isFinishing) {
+                ConnectCreateDialog.getInstance(activity).show()
+                prepareVpn()
+            }
         }
     }
 
