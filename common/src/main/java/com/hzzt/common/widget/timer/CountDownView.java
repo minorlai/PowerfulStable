@@ -172,7 +172,20 @@ public class CountDownView extends View {
     public void start() {
         if (timer == null && countDownTime > 0) {
             timer = new Timer();
-            timer.schedule(timerTask, 1000, 1000);
+            timer.schedule(timerTask= new TimerTask() {
+                @Override
+                public void run() {
+                    countDownTime--;
+                    invalidate();
+                    if (onCallBackListener != null)
+                        onCallBackListener.onTick(countDownTime);
+                    if (countDownTime <= 0) {
+                        timerTask.cancel();
+                        timer.cancel();
+                        timer = null;
+                    }
+                }
+            }, 1000, 1000);
         }
     }
 
@@ -276,20 +289,21 @@ public class CountDownView extends View {
     }
 
     private Timer timer;
-    private TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            countDownTime--;
-            invalidate();
-            if (onCallBackListener != null)
-                onCallBackListener.onTick(countDownTime);
-            if (countDownTime <= 0) {
-                timerTask.cancel();
-                timer.cancel();
-                timer = null;
-            }
-        }
-    };
+    private TimerTask timerTask;
+//    private TimerTask timerTask = new TimerTask() {
+//        @Override
+//        public void run() {
+//            countDownTime--;
+//            invalidate();
+//            if (onCallBackListener != null)
+//                onCallBackListener.onTick(countDownTime);
+//            if (countDownTime <= 0) {
+//                timerTask.cancel();
+//                timer.cancel();
+//                timer = null;
+//            }
+//        }
+//    };
 
 
     /**

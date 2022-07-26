@@ -22,7 +22,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_12"
             android:background="@drawable/bg_rect_white_top_12dp">
             <com.hzzt.common.widget.web.ComWebView
                 android:id="@+id/web_view"

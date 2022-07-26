@@ -7,7 +7,7 @@ package com.hzzt.common.data.api
  */
 object ApiUrl {
     //域名地址
-    var baseUrl = "https://api.ask-spark.com/"
+    var baseUrl = "https://www.baidu.com/"
 
     //服务协议
     const val serviceUrl="https://www.powerful-stable.live/detail/service.html"

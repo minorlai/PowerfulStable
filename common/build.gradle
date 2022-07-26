@@ -85,8 +85,7 @@ dependencies {
     implementation rootProject.ext.dependencies["lombok"]
     annotationProcessor rootProject.ext.dependencies["lombok"]
 
-    //mvvm框架
-    api rootProject.ext.dependencies["mvvm"]
+    api project(path: ':vpnLib')
 
     //刷新
   //  api rootProject.ext.dependencies["smartRefreshLayout"]

@@ -18,6 +18,7 @@ object Constant {
     const val CONNECT="connect"
     const val RECONNECT="reconnect"
     const val NONETWORK="noNetwork"
+    const val USERPAUSE="pause"
 
     const val CONNECTKEY="connectState"
 }

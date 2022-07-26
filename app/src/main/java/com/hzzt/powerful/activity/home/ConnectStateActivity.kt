@@ -1,5 +1,6 @@
 package com.hzzt.powerful.activity.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -84,10 +85,22 @@ class ConnectStateActivity : BaseA<ActivityConnectResultBinding, MainVm>() {
         when (view?.id) {
             R.id.tv_server -> {
                 if (connectState == Constant.CONNECT_FAIL || connectState == Constant.CONNECTED) {
-                    startActivity(ServerActivity::class.java)
+                    startActivityForResult(
+                        Intent(activity, ServerActivity::class.java),
+                        MainActivity.reqCode
+                    )
+                } else {
+                    finish()
                 }
-                finish()
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK)
+            finish()
         }
     }
 

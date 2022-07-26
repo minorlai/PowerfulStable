@@ -49,12 +49,13 @@ import java.net.URL
 
 class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
     private var currentServerResp: CurrentServerResp? = null  //当前连接服务器
-    private var reqCode: Int = 0x123
     private var countTime: Int = CacheData.downTimer  //3个小时
-//    private var halfHour: Int = (0.5 * 60 * 60).toInt()  //半小时
+
+    //    private var halfHour: Int = (0.5 * 60 * 60).toInt()  //半小时
     private var halfHour: Int = 2400  //半小时
-    private var remindDialog: RemindDownDialog?=null  //闹钟提醒
+    private var remindDialog: RemindDownDialog? = null  //闹钟提醒
     private var isHandClick: Boolean = false  //是否手动点击
+    private var currentState = ""  //当前状态
 
     //当前速度
     companion object {
@@ -63,6 +64,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         var tempSpeedOut = ""
         var useDuration = ""
         var vpnStart: Boolean = false  //是否开始连接
+        var reqCode: Int = 0x123
     }
 
     override fun initLayout(savedInstanceState: Bundle?): Int {
@@ -127,33 +129,35 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
 
     //倒计时
     private fun initDownTimer() {
-        time_view.setCountDownTime(countTime);//设置控件的倒计时间
-        if(countTime<halfHour){
+        time_view.setCountDownTime(if (currentServerResp == null||TextUtils.isEmpty(currentServerResp?.serUrl)) 0 else countTime)//设置控件的倒计时间(首次安装进入显示00:00:00)
+        if (countTime < halfHour) {
             time_view.setTextPointColor(getResColor(R.color.red1))
-        }else{
+        } else {
             time_view.setTextPointColor(getResColor(R.color.white))
         }
         time_view.setOnCallBackListener { downTime ->  //监听倒计时
             handler.post {
                 this.countTime = downTime
                 if (downTime < halfHour) {
-                    if(remindDialog==null){
-                        remindDialog= RemindDownDialog(activity,getResToStr(R.string.connect_down))
-                        remindDialog!!.setListener{
-                            remindDialog=null
+                    if (remindDialog == null) {
+                        remindDialog =
+                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
+                        remindDialog!!.setListener {
+                            remindDialog = null
                         }
                         remindDialog!!.show()
                     }
                     time_view.setTextPointColor(getResColor(R.color.red1))
-                } else if(downTime==0){  //结束
-                    if(remindDialog==null){
-                        remindDialog= RemindDownDialog(activity,getResToStr(R.string.connect_down))
-                        remindDialog!!.setListener{
-                            remindDialog=null
+                } else if (downTime == 0) {  //结束
+                    if (remindDialog == null) {
+                        remindDialog =
+                            RemindDownDialog(activity, getResToStr(R.string.connect_down))
+                        remindDialog!!.setListener {
+                            remindDialog = null
                         }
                         remindDialog!!.show()
                     }
-                }else {
+                } else {
                     time_view.setTextPointColor(getResColor(R.color.white))
                 }
             }
@@ -172,7 +176,13 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                         ConnectCreateDialog.getInstance(activity).show()
                         prepareVpn()
                     } else {
-                        layout_server.callOnClick()
+                        //随机一个
+                        currentServerResp = AppUtil.getRandomServer(activity)
+                        if (currentServerResp != null && !TextUtils.isEmpty(currentServerResp?.serUrl)) {
+                            checkCacheConfig() //设置底下数据
+                            ConnectCreateDialog.getInstance(activity).show()
+                            prepareVpn()
+                        }
                     }
                 }
             }
@@ -180,7 +190,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 WebComActivity.getInstanceActivity(
                     activity,
                     ApiUrl.faqUrl,
-                    getResToStr(R.string.privacy_text3)
+                    getResToStr(R.string.menu_faq)
                 )
             }
             R.id.layout_pp -> {
@@ -230,7 +240,6 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                     vpnStart = true // it will use after restart this activity
                     KLog.d("-------已连接")
                     status(Constant.CONNECTED)
-                    ConnectCreateDialog.getInstance(activity).dismiss()
                 }
                 "WAIT" -> {   //正在连接
                     KLog.d("-------正在连接")
@@ -250,6 +259,9 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                     //  showMsg(R.string.app_error_101)
                     ConnectCreateDialog.getInstance(activity).dismiss()
                 }
+                "USERPAUSE" ->{  //暂停
+                    status(Constant.USERPAUSE)
+                }
             }
         }
     }
@@ -268,25 +280,31 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             iv_connect.setImageResource(R.drawable.bg_circle_in_press)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_main)
             //连接结果
-            if (AppUtil.isMultiClickClick(2000)) {
-                countTime=CacheData.downTimer
+            if (ClickUtil.isConnectClick(1000)) {
+                ConnectCreateDialog.getInstance(activity).dismiss()
+
+                countTime = CacheData.downTimer
                 time_view.setCountDownTime(countTime)
+                time_view.stop()
                 time_view.start() //启动倒计时
                 Intent(activity, ConnectStateActivity::class.java).run {
                     putExtra(Constant.CONNECTKEY, Constant.CONNECTED)
-                    startActivity(this)
+                    startActivityForResult(this, reqCode)
                 }
             }
         } else if (status == Constant.DISCONNECT) {  //断开
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
             //连接结果
-            if (ClickUtil.isFastClick()&&isHandClick) {
-                isHandClick=false
+            if (ClickUtil.isConnectClick(1000) && isHandClick) {
+                isHandClick = false
                 Intent(activity, ConnectStateActivity::class.java).run {
                     putExtra(Constant.CONNECTKEY, Constant.DISCONNECT)
-                    startActivity(this)
+                    startActivityForResult(this, reqCode)
                 }
+                time_view.stop() //结束倒计时
+                CacheData.downTimer = countTime  //保存结束倒计时
+            }else{
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
             }
@@ -294,16 +312,18 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
             //连接结果
-            if (ClickUtil.isFastClick()&&isHandClick) {
-                isHandClick=false
+            if (ClickUtil.isFastClick() && isHandClick) {
+                isHandClick = false
                 Intent(activity, ConnectStateActivity::class.java).run {
                     putExtra(Constant.CONNECTKEY, Constant.DISCONNECT)
-                    startActivity(this)
+                    startActivityForResult(this, reqCode)
                 }
                 time_view.stop() //结束倒计时
                 CacheData.downTimer = countTime  //保存结束倒计时
             }
         } else {
+            time_view.stop() //结束倒计时
+            CacheData.downTimer = countTime  //保存结束倒计时
             iv_connect.setImageResource(R.drawable.bg_circle_in_normal)
             layout_ss.setBackgroundResource(R.drawable.bg_circle_gray)
         }
@@ -336,6 +356,9 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 // Update log
                 vpnStart = true
             } catch (e: Exception) {
+                showMsg(e.message)
+                ConnectCreateDialog.getInstance(activity).dismiss()
+                stopVpn()
                 e.printStackTrace()
             }
         }.start()
@@ -364,7 +387,7 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         if (AppUtil.isMultiClickClick(1000)) {
             val disconnectDialog = DisconnectDialog(activity)
             disconnectDialog.setListener {
-                isHandClick = true;
+                isHandClick = true
                 tempSpeedOut = currentSpeedOut
                 stopVpn()
             }
@@ -405,15 +428,17 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 currentSpeedIn = intent.getStringExtra("byteIn").toString()
                 currentSpeedOut = intent.getStringExtra("byteOut").toString()
 
-                KLog.d("----------duration=$useDuration-----------byteIn=$currentSpeedIn------------byteOut=$currentSpeedOut")
+                //  KLog.d("----------duration=$useDuration-----------byteIn=$currentSpeedIn------------byteOut=$currentSpeedOut")
                 RxBus.getDefault().postSticky(currentSpeedOut)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
             try {
                 var resultState = intent.getStringExtra("state")
-                if (!TextUtils.isEmpty(resultState)) {
-                    resultState?.let { setStatus(it) }
+                if (!TextUtils.isEmpty(resultState) && currentState != resultState) {
+                    setStatus(resultState!!)
+                    KLog.d("--???currentState=$currentState--->$resultState")
+                    currentState = resultState!!
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -437,9 +462,6 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
         LocalBroadcastManager.getInstance(activity)
             .registerReceiver(broadcastReceiver, IntentFilter("connectionState"))
         super.onResume()
-        //是否连接
-//        vpnStart=OpenVPNService.isConnected();
-//        if(vpnStart)iv_connect.setImageResource(R.drawable.bg_circle_in_press)
     }
 
 //    override fun onPause() {
@@ -455,7 +477,10 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == reqCode && resultCode == RESULT_OK) {
+        //授权时，开始连接
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            startVpn()
+        } else if (resultCode == RESULT_OK) {
             checkCacheConfig()
             // 停止之前的连接
             if (vpnStart) {

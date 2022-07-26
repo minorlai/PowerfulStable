@@ -19,4 +19,45 @@ public class ClickUtil {
         lastClickTime = curClickTime;
         return flag;
     }
+
+
+    /**
+     * 已连接的防点
+     */
+    public static long connectLastClickTime;
+    public static boolean isConnectClick(int minTime) {
+        boolean flag = false;
+        if (minTime == 0)
+            minTime = 1000;
+        try {
+            long curClickTime = System.currentTimeMillis();
+            if ((curClickTime - connectLastClickTime) >= minTime || (curClickTime - connectLastClickTime) < 0) {
+                flag = true;
+                connectLastClickTime = curClickTime;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 已连接的防点
+     */
+    public static long disconnectLastClickTime;
+    public static boolean isDisconnectClick(int minTime) {
+        boolean flag = false;
+        if (minTime == 0)
+            minTime = 1000;
+        try {
+            long curClickTime = System.currentTimeMillis();
+            if ((curClickTime - disconnectLastClickTime) >= minTime || (curClickTime - disconnectLastClickTime) < 0) {
+                flag = true;
+                disconnectLastClickTime = curClickTime;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }
