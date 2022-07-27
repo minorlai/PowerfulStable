@@ -51,6 +51,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/faq"
             android:layout_marginLeft="@dimen/dp_10"
+            android:includeFontPadding="false"
             android:text="@string/menu_faq"
             android:textColor="@color/white"
             android:textSize="@dimen/text16" />
@@ -84,6 +85,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/pp"
             android:text="@string/menu_pp"
+            android:includeFontPadding="false"
             android:layout_marginLeft="@dimen/dp_10"
             android:textColor="@color/white"
             android:textSize="@dimen/text16" />
@@ -99,7 +101,7 @@
     <RelativeLayout
         android:id="@+id/layout_au"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
+        android:layout_height="@dimen/dp_65"
         android:onClick="onClickView"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
@@ -117,6 +119,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/au"
             android:layout_marginLeft="@dimen/dp_10"
+            android:includeFontPadding="false"
             android:text="@string/menu_au"
             android:textColor="@color/white"
             android:textSize="@dimen/text16" />
@@ -132,7 +135,7 @@
     <RelativeLayout
         android:id="@+id/layout_exit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
+        android:layout_height="@dimen/dp_65"
         android:onClick="onClickView"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
@@ -150,6 +153,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_toRightOf="@+id/exit"
+            android:includeFontPadding="false"
             android:text="@string/menu_exit"
             android:textColor="@color/white"
             android:textSize="@dimen/text16" />

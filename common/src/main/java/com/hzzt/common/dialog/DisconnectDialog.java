@@ -26,13 +26,13 @@ public class DisconnectDialog extends Dialog {
     private Context context;
 
     public static DisconnectDialog getInstance(Context context) {
-        if (dialog == null) {
-            synchronized (DisconnectDialog.class) {
-                if (dialog == null) {
+//        if (dialog == null) {
+//            synchronized (DisconnectDialog.class) {
+//                if (dialog == null) {
                     dialog = new DisconnectDialog(context);
-                }
-            }
-        }
+//                }
+//            }
+//        }
         return dialog;
     }
 

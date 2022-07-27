@@ -25,13 +25,13 @@ public class AppExitDialog extends Dialog {
     private Context context;
 
     public static AppExitDialog getInstance(Context context) {
-        if (dialog == null) {
-            synchronized (AppExitDialog.class) {
-                if (dialog == null) {
+//        if (dialog == null) {
+//            synchronized (AppExitDialog.class) {
+//                if (dialog == null) {
                     dialog = new AppExitDialog(context);
-                }
-            }
-        }
+//                }
+//            }
+//        }
         return dialog;
     }
 

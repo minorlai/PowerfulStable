@@ -41,6 +41,7 @@ import de.blinkt.openvpn.core.OpenVPNThread
 import de.blinkt.openvpn.core.VpnStatus
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.home_drawer_content.*
 import me.goldze.mvvmhabit.base.AppManager
 import me.goldze.mvvmhabit.bus.RxBus
 import me.goldze.mvvmhabit.http.NetworkUtil
@@ -240,6 +241,12 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
             R.id.layout_exit -> {
                 val exitDialog = AppExitDialog.getInstance(activity)
                 exitDialog.setListener {
+                    //退出结束连接
+                    if (vpnStart) {
+                        stopVpn()
+                        time_view.stop() //结束倒计时
+                        CacheData.downTimer = countTime  //保存结束倒计时
+                    }
                     AppManager.getAppManager().AppExit()
                     finish()
                 }
@@ -466,6 +473,9 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
                 } else startVpn()
                 status(Constant.CONNECTING)
             } else {
+                //没有网络的情况下也需要跳失败页面
+                stopVpn()
+                startCheckConnectState()
                 // 没有可用的互联网连接
                 showMsg(R.string.app_error_101)
             }
@@ -557,11 +567,12 @@ class MainActivity : BaseA<ActivityMainBinding, MainVm>() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.keyCode === KeyEvent.KEYCODE_BACK && event.action === KeyEvent.ACTION_DOWN) {
-            if (AppUtil.doubleClickExit()) { //2000毫秒内
-                AppManager.getAppManager().AppExit()
-                finish()
-            }
-            return true
+//            if (AppUtil.doubleClickExit()) { //2000毫秒内
+//                AppManager.getAppManager().AppExit()
+//                finish()
+//            }
+            layout_exit.callOnClick()
+            return false
         }
         return super.onKeyDown(keyCode, event)
     }

@@ -26,13 +26,13 @@ public class ConnectHintDialog extends Dialog {
     private Context context;
 
     public static ConnectHintDialog getInstance(Context context) {
-        if (dialog == null) {
-            synchronized (ConnectHintDialog.class) {
-                if (dialog == null) {
+//        if (dialog == null) {
+//            synchronized (ConnectHintDialog.class) {
+//                if (dialog == null) {
                     dialog = new ConnectHintDialog(context);
-                }
-            }
-        }
+//                }
+//            }
+//        }
         return dialog;
     }
 
